@@ -58,19 +58,33 @@ class Model:
 class activity_classifier:
 
     def __init__(self):
+        print('training model 1'+'-'*50)
         self.acc_x_model = Model('Data/new/acc_X.csv')
+        print('training model 2'+'-'*50)
         self.acc_y_model = Model('Data/new/acc_Y.csv')
+        print('training model 3'+'-'*50)
         self.acc_z_model = Model('Data/new/acc_Z.csv')
+        print('training model 4'+'-'*50)
         self.gyro_x_model = Model('Data/new/gyro_X.csv')
+        print('training model 5'+'-'*50)
         self.gyro_y_model = Model('Data/new/gyro_Y.csv')
+        print('training model 6'+'-'*50)
         self.gyro_z_model = Model('Data/new/gyro_Z.csv')
         return
 
     def accuracy(self):
+        print('Calculating Accuracy'+'-'*50)
         df_acc = pd.read_csv('Data/new/Accelerometer.csv')
         df_gyro = pd.read_csv('Data/new/Gyroscope.csv')
         count=0
         total=0
+        confussion = [
+            [0,0,0,0],
+            [0,0,0,0],
+            [0,0,0,0],
+            [0,0,0,0]
+        ]
+        
         for i in range(0,len(df_acc['X']),20):
             if(len(df_acc['X'][i:i+20].values)==20):
                 p_acc_x = self.acc_x_model.predict(np.asarray([df_acc['X'][i:i+20].values]))
@@ -83,7 +97,8 @@ class activity_classifier:
                 if(df_acc['y'][i] == prediction):
                     count+=1
                 total+=1
-        return (count/total)*100
+                confussion[df_acc['y'][i]][prediction] += 1
+        return ((count/total)*100,confussion)
 
     def mode(self,array):
         return max(set(array), key = array.count) 
@@ -91,7 +106,12 @@ class activity_classifier:
 
 if __name__ == '__main__':
     models = activity_classifier()
-    print(models.accuracy())
+    result = models.accuracy()
+    print(result[0])
+    for i in range(4):
+        for j in range(4):
+            print(str(result[1][i][j]), end ="  ")
+        print()
 
 
     
