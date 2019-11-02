@@ -4,8 +4,7 @@ Using the concepts of signal processing, machine learning and neural networks tr
 Accelerometer and Gyroscope values are obtained from the sensors in your phone.
 
 # Data
-* Download the 'Data' folder from https://drive.google.com/drive/folders/1MWxswFCKvRAg62xt056tnkfqrxPFD6OJ
-* Replace the 'Data' folder in this directory with the downloaded 'Data' folder
+Data set contains values gathered by sensors like accelerometer and gyroscope present in mobile devices. Data is collected by actually performing all the motor activities.
 
 ## Installation
 1. Tensor Flow  
